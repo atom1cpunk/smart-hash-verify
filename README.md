@@ -6,6 +6,8 @@ Verify downloaded ISOs, images, archives, and RPMs against a checksum file or a 
 
 **Version:** 2.1.2
 
+**Repository:** [https://github.com/atom1cpunk/smart-hash-verify](https://github.com/atom1cpunk/smart-hash-verify)
+
 ---
 
 ## Features
@@ -32,83 +34,95 @@ Verify downloaded ISOs, images, archives, and RPMs against a checksum file or a 
 
 ## Installation
 
-Clone or download the script, then:
+### Clone the repository
 
-    chmod +x smart-hash-verify
+```bash
+git clone https://github.com/atom1cpunk/smart-hash-verify.git
+cd smart-hash-verify
+chmod +x smart-hash-verify
+```
 
-Optional: install somewhere on your PATH
+### Optional: install on your PATH
 
-    mkdir -p ~/bin
-    cp smart-hash-verify ~/bin/
+```bash
+mkdir -p ~/bin
+cp smart-hash-verify ~/bin/
+```
 
-Ensure ~/bin is in your PATH.
+Ensure `~/bin` is in your `PATH`, then run:
+
+```bash
+smart-hash-verify --help
+```
 
 ---
 
 ## Usage
 
-    smart-hash-verify [TARGET_FILE [CHECKSUM_FILE | HASH]]
-    smart-hash-verify [TARGET_FILE SHA-256: HASH]
-    smart-hash-verify -h | --help
-    smart-hash-verify -v | --version
+```text
+smart-hash-verify [TARGET_FILE [CHECKSUM_FILE | HASH]]
+smart-hash-verify [TARGET_FILE SHA-256: HASH]
+smart-hash-verify -h | --help
+smart-hash-verify -v | --version
+```
 
 ### Examples
 
-Fully interactive:
+```bash
+# Fully interactive
+smart-hash-verify
 
-    smart-hash-verify
+# Target only — still prompts for hash source
+smart-hash-verify ubuntu.iso
 
-Target only (still prompts for hash source):
+# Target + checksum file
+smart-hash-verify ubuntu.iso SHA256SUMS
 
-    smart-hash-verify ubuntu.iso
+# Target + hash on the command line
+smart-hash-verify ubuntu.iso sha:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 
-Target + checksum file:
+# Prefix with space (quoted)
+smart-hash-verify ubuntu.iso "SHA-256: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 
-    smart-hash-verify ubuntu.iso SHA256SUMS
-
-Target + hash on the command line:
-
-    smart-hash-verify ubuntu.iso sha:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
-
-Prefix with space (quoted):
-
-    smart-hash-verify ubuntu.iso "SHA-256: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
-
-Prefix and hash as separate arguments:
-
-    smart-hash-verify ubuntu.iso SHA-256: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+# Prefix and hash as separate arguments
+smart-hash-verify ubuntu.iso SHA-256: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+```
 
 ### Interactive tips
 
 - Choose a local candidate from the menu, or enter a path manually
-- Paths may use ~ (e.g. ~/Downloads/ubuntu.iso)
+- Paths may use `~` (e.g. `~/Downloads/ubuntu.iso`)
 - Drag-and-drop a file into the terminal is supported on most desktop terminals
-- Option 2 accepts a plain 64-character hash or a SHA-256: / sha: prefixed value
+- Option 2 accepts a plain 64-character hash or a `SHA-256:` / `sha:` prefixed value
 
 ---
 
 ## Output
 
-Success:
+**Success**
 
-    ==================================================
-     SUCCESS: SHA-256 hashes match! File is intact.
-    ==================================================
-    File:     ubuntu.iso
-    SHA-256:  0123456789abcdef...
-    Time:     12.4s
+```text
+==================================================
+ SUCCESS: SHA-256 hashes match! File is intact.
+==================================================
+File:     ubuntu.iso
+SHA-256:  0123456789abcdef...
+Time:     12.4s
+```
 
-Failure:
+**Failure**
 
-    ==================================================
-     FAILURE: SHA-256 hashes DO NOT match!
-    ==================================================
-    File:     ubuntu.iso
-    Expected: 0123456789abcdef...
-    Actual:   fedcba9876543210...
-    Time:     < 1s
+```text
+==================================================
+ FAILURE: SHA-256 hashes DO NOT match!
+==================================================
+File:     ubuntu.iso
+Expected: 0123456789abcdef...
+Actual:   fedcba9876543210...
+Time:     < 1s
+```
 
-Timing is always shown: < 1s for short runs, or seconds to one decimal place when longer.
+Timing is always shown: `< 1s` for short runs, or seconds to one decimal place when longer.
 
 ---
 
@@ -116,23 +130,23 @@ Timing is always shown: < 1s for short runs, or seconds to one decimal place whe
 
 | Code | Meaning |
 |------|---------|
-| 0 | Hashes match |
-| 1 | Hashes do not match, or a runtime error |
-| 2 | Invalid usage / too many arguments |
-| 130 | Interrupted with Ctrl+C |
+| `0`  | Hashes match |
+| `1`  | Hashes do not match, or a runtime error |
+| `2`  | Invalid usage / too many arguments |
+| `130`| Interrupted with Ctrl+C |
 
 ---
 
 ## Supported checksum formats
 
-- HASH  filename
-- HASH *filename (binary indicator)
+- `HASH  filename`
+- `HASH *filename` (binary indicator)
 
 Prefixed manual input:
 
-- SHA-256: followed by 64 hex digits
-- sha256: followed by 64 hex digits
-- sha: followed by 64 hex digits
+- `SHA-256: <64 hex digits>`
+- `sha256: <64 hex digits>`
+- `sha: <64 hex digits>`
 - Plain 64-character hex string
 
 GNU-escaped or newline-containing filenames in checksum manifests are not supported (normal ISO/archive names are fine).
@@ -141,9 +155,9 @@ GNU-escaped or newline-containing filenames in checksum manifests are not suppor
 
 ## Environment
 
-| Variable | Effect |
-|----------|--------|
-| NO_COLOR | Disable colored output when set to any value |
+| Variable   | Effect |
+|------------|--------|
+| `NO_COLOR` | Disable colored output when set to any value |
 
 ---
 
