@@ -24,14 +24,6 @@ Verify downloaded ISOs, images, archives, and RPMs against a checksum file or a 
 
 ---
 
-## Requirements
-
-- Bash 4+
-- GNU coreutils (`find`, `sort`, `sha256sum`, `basename`, `date`)
-- Linux (tested with Fedora; other modern distros should work)
-
----
-
 ## Installation
 
 ### Clone the repository
