@@ -4,8 +4,6 @@ Interactive SHA-256 verification tool for Linux (**SHA-256 only** — no MD5, SH
 
 Verify downloaded ISOs, images, archives, and RPMs against a checksum file or a pasted hash — from the terminal or with a short command line.
 
-**Version:** 2.2.1
-
 **Repository:** [https://github.com/atom1cpunk/smart-hash-verify](https://github.com/atom1cpunk/smart-hash-verify)
 
 ---
