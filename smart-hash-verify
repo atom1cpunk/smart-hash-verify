@@ -99,6 +99,7 @@ show_version() {
 # NOTE: the '~/'* pattern must be quoted. Unquoted, bash tilde-expands it
 # inside [[ ]] to "$HOME/*", which mangles absolute paths under $HOME and
 # leaves a typed "~/..." path unexpanded.
+# shellcheck disable=SC2088
 expand_tilde() {
     local p=$1
     if [[ $p == '~' ]]; then
